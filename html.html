@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .canvas-container {
+      width: 100vw;
+      height: 100vh;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      height: 100vh;
+    }
+
+    #controls-zone {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      padding: 30px; /* Augmenter la taille du padding pour des boutons plus gros */
+      font-size: 34px; /* Augmenter la taille du texte */
+      cursor: pointer;
+      background-color: transparent;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+   <canvas
+    id="display-canvas"
+    class="display-canvas"
+    oncontextmenu="event.preventDefault()"
+    onclick="onClick(event)"
+   ></canvas>
+    
+  <div id="controls-zone">
+    <div id="controls">
+      <button onclick="reverse()">⏪</button>
+      <button id="startPauseButton" onclick="togglePlayPause()">▶️</button>
+      <button onclick="forward()">⏩</button>
+      <button onclick="openOptions()">⚙️</button>
+    </div>
+  </div>
+
+  <!-- LIVELINK SDK -->
+  <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
+
+  <script>
+    var isPlaying = false;
+
+    async function init() {
+      await initSession(); 
+      await initEntities(); 
+    }
+
+    async function initSession() {
+      await SDK3DVerse.joinOrStartSession({
+        userToken: "public_VU0u4tvRqwxLIiZw",
+        sceneUUID: "e6d5bd66-be7f-47eb-8569-5cf441abfd7c",
+        canvas: document.getElementById("display-canvas"),
+        viewportProperties: {
+          defaultControllerType: SDK3DVerse.controller_type.orbit,
+        },
+      });
+    }
+
+    async function initEntities() {
+      const entities = await SDK3DVerse.engineAPI.findEntitiesByEUID("8dda24fe-0d46-427a-ab54-a8771eca876f");
+      linker = entities[0];
+      
+      const hEntities = await SDK3DVerse.engineAPI.findEntitiesByEUID("fa9f5c6e-f595-47a8-8d96-13e57d5db262");
+      hlinker = hEntities[0];
+    }
+
+    function togglePlayPause() {
+      var startPauseButton = document.getElementById("startPauseButton");
+  
+      if (isPlaying) {
+        SDK3DVerse.engineAPI.pauseAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , hlinker);
+        SDK3DVerse.engineAPI.pauseAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , linker );
+        startPauseButton.textContent = "▶️";
+      } else {
+        // Animation
+        SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , {playbackSpeed : 1} , hlinker);
+        SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0", {playbackSpeed : 1} , linker);
+        startPauseButton.textContent = "⏸";
+      }
+
+      isPlaying = !isPlaying;
+    }
+
+    function reverse() {
+      SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" ,{ playbackSpeed : -1 } , hlinker);
+      SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , { playbackSpeed : -1 } , linker);
+      if (isPlaying == false)
+      {
+        startPauseButton.textContent = "⏸"
+        isPlaying = true;
+      }
+    }
+
+    function forward() {
+      SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" ,{ playbackSpeed : 2 } , hlinker);
+      SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , { playbackSpeed : 2 }, linker);
+      if (isPlaying == false)
+      {
+        startPauseButton.textContent = "⏸"
+        isPlaying = true;
+      }
+    }
+
+    
+    function openOptions(){
+      if (linker.isVisible())
+      {
+        linker.setVisibility(false);
+        hlinker.setVisibility(true);
+      }
+      else
+      {
+        linker.setVisibility(true);
+        hlinker.setVisibility(false);
+      }
+    }
+
+    async function onClick(event) {
+
+      console.log("lteeth");
+      const target = await SDK3DVerse.engineAPI.castScreenSpaceRay(
+        event.clientX,
+        event.clientY 
+      );
+
+      
+      if (!target.pickedPosition) return;
+      const clickedEntity = target.entity;
+      const rootEntities = await SDK3DVerse.engineAPI.getRootEntities();
+      /*
+      const hteeth = rootEntities.find(
+        (e) => e.getName() === 'hteeth'
+      );
+      const hgum = rootEntities.find(
+        (e) => e.getName() === 'hgum'
+      );
+      const hmuscle = rootEntities.find(
+        (e) => e.getName() === 'hmuscle'
+      );
+
+      const lgum = rootEntities.find(
+        (e) => e.getName() === 'lgum'
+      );
+
+      const lmuscle = rootEntities.find(
+        (e) => e.getName() === 'lmuscle'
+      );
+
+      */
+      const lteeth = rootEntities.find(
+        (e) => e.getName() === 'lteeth' 
+      );
+      
+      if (clickedEntity.getID() !== lteeth?.getID()) {
+        console.log("lteeth2");
+        lteeth.setComponent('material_lteeth', material_lteeth_opa);
+      }
+
+    };
+    
+    init(); 
+  </script>
+
+</body>
+
+</html>
