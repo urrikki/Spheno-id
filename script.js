@@ -1,77 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .canvas-container {
-      width: 100vw;
-      height: 100vh;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-      height: 100vh;
-    }
-
-    #controls-zone {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-    }
-
-    #controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    button {
-      padding: 30px; /* Augmenter la taille du padding pour des boutons plus gros */
-      font-size: 34px; /* Augmenter la taille du texte */
-      cursor: pointer;
-      background-color: transparent;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-    }
-    
-  </style>
-</head>
-
-<body>
-
-   <canvas
-    id="display-canvas"
-    class="display-canvas"
-    oncontextmenu="event.preventDefault()"
-    onclick="onClick(event)"
-   ></canvas>
-    
-  <div id="controls-zone">
-    <div id="controls">
-      <button onclick="reverse()">⏪</button>
-      <button id="startPauseButton" onclick="togglePlayPause()">▶️</button>
-      <button onclick="forward()">⏩</button>
-      <button onclick="openOptions()">⚙️</button>
-    </div>
-  </div>
-
-  <!-- LIVELINK SDK -->
-  <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
-
-  <script>
-    var isPlaying = false;
+var isPlaying = false;
 
     async function init() {
       await initSession(); 
@@ -192,8 +119,3 @@
     };
     
     init(); 
-  </script>
-
-</body>
-
-</html>

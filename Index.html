@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+   <canvas
+    id="display-canvas"
+    class="display-canvas"
+    oncontextmenu="event.preventDefault()"
+    onclick="onClick(event)"
+   ></canvas>
+    
+  <div id="controls-zone">
+    <div id="controls">
+      <button onclick="reverse()">⏪</button>
+      <button id="startPauseButton" onclick="togglePlayPause()">▶️</button>
+      <button onclick="forward()">⏩</button>
+      <button onclick="openOptions()">⚙️</button>
+    </div>
+  </div>
+
+  <!-- LIVELINK SDK -->
+  <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
+
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
