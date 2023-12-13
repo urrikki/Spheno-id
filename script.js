@@ -1,5 +1,4 @@
 var isPlaying = false;
-var opac = false;
 
     async function init() {
       await initSession(); 
@@ -41,9 +40,19 @@ var opac = false;
         if (Elements[index][0]?.getID() != theOneId) {
           Elements[index][0].setComponent('material', {
             dataJSON: {
+              opacity: 1,
+            },
+          });
+        }
+      }
+      for (let index = 0; index < Elements.length; index++) {
+        if (Elements[index][0]?.getID() != theOneId) {
+          Elements[index][0].setComponent('material', {
+            dataJSON: {
               opacity: opacityValue,
             },
           });
+          console.log(Elements[index][0].getComponent('material'));
         }
       }
     }
@@ -112,7 +121,6 @@ var opac = false;
     }
 
     async function onClick(event) {
-      
       const target = await SDK3DVerse.engineAPI.castScreenSpaceRay(
         event.clientX,
         event.clientY 
@@ -145,8 +153,25 @@ var opac = false;
           opacity(hElements , hmuscle[0]?.getID(), 0.1)
         }
       }
-      
-
     };
+
+    function getIDentity(Elements , Number) {
+      return Elements[Number][0]?.getID();
+    }
+
+    function onEntitySelected() {
+      const dropdown = document.getElementById("entityDropdown");
+      const selectedEntityId = dropdown.value;
+      if (linker.isVisible())
+      {
+        opacity(lElements , getIDentity(lElements , selectedEntityId) , 0.3);
+        opac = true;
+      }
+      else
+      {
+        opacity(hElements , getIDentity(hElements , selectedEntityId) , 0.3);
+        opac = true;
+      }
+    }
     
     init(); 

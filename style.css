@@ -8,6 +8,28 @@
     position: relative;
   }
 
+  #entityContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 20px;
+  }
+
+  #entityDropdown {
+    margin-bottom: 10px;
+  }
+
+  #entityInfo {
+    margin-bottom: 10px;
+  }
+
+  #launchButton {
+    padding: 10px;
+    cursor: pointer;
+  }
+
   body {
     display: flex;
     align-items: center;
