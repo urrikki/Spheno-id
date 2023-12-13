@@ -1,4 +1,5 @@
 var isPlaying = false;
+var opac = false;
 
     async function init() {
       await initSession(); 
@@ -22,6 +23,41 @@ var isPlaying = false;
       
       const hEntities = await SDK3DVerse.engineAPI.findEntitiesByEUID("fa9f5c6e-f595-47a8-8d96-13e57d5db262");
       hlinker = hEntities[0];
+
+      lteeth = await SDK3DVerse.engineAPI.findEntitiesByNames('lteeth');
+      lgum = await SDK3DVerse.engineAPI.findEntitiesByNames('lgum');
+      lmuscle = await SDK3DVerse.engineAPI.findEntitiesByNames('lmuscle');
+      hteeth = await SDK3DVerse.engineAPI.findEntitiesByNames('hteeth');
+      hgum = await SDK3DVerse.engineAPI.findEntitiesByNames('hgum');
+      hmuscle = await SDK3DVerse.engineAPI.findEntitiesByNames('hmuscle');
+
+      lElements = [lteeth, lgum, lmuscle];
+      hElements = [hteeth, hgum, hmuscle];
+
+    }
+
+    function opacity(Elements, theOneId , opacityValue) {
+      for (let index = 0; index < Elements.length; index++) {
+        if (Elements[index][0]?.getID() != theOneId) {
+          Elements[index][0].setComponent('material', {
+            dataJSON: {
+              opacity: opacityValue,
+            },
+          });
+        }
+      }
+    }
+
+    function comeBack()
+    {
+      if (linker.isVisible())
+      {
+        opacity(lElements , 'ok' , 1)
+      }
+      else
+      {
+        opacity(hElements , 'ok' , 1)
+      }
     }
 
     function togglePlayPause() {
@@ -76,45 +112,40 @@ var isPlaying = false;
     }
 
     async function onClick(event) {
-
-      console.log("lteeth");
+      
       const target = await SDK3DVerse.engineAPI.castScreenSpaceRay(
         event.clientX,
         event.clientY 
       );
-
       
       if (!target.pickedPosition) return;
       const clickedEntity = target.entity;
-      const rootEntities = await SDK3DVerse.engineAPI.getRootEntities();
-      /*
-      const hteeth = rootEntities.find(
-        (e) => e.getName() === 'hteeth'
-      );
-      const hgum = rootEntities.find(
-        (e) => e.getName() === 'hgum'
-      );
-      const hmuscle = rootEntities.find(
-        (e) => e.getName() === 'hmuscle'
-      );
-
-      const lgum = rootEntities.find(
-        (e) => e.getName() === 'lgum'
-      );
-
-      const lmuscle = rootEntities.find(
-        (e) => e.getName() === 'lmuscle'
-      );
-
-      */
-      const lteeth = rootEntities.find(
-        (e) => e.getName() === 'lteeth' 
-      );
-      
-      if (clickedEntity.getID() !== lteeth?.getID()) {
-        console.log("lteeth2");
-        lteeth.setComponent('material_lteeth', material_lteeth_opa);
+    
+      if (linker.isVisible())
+      {
+        if (clickedEntity.getID() == lteeth[0]?.getID()) {
+          opacity(lElements , lteeth[0]?.getID() , 0.1)
+        }
+        else if (clickedEntity.getID() == lgum[0]?.getID()){
+          opacity(lElements , lgum[0]?.getID(), 0.1)
+        }
+        else if (clickedEntity.getID() == lmuscle[0]?.getID()){
+          opacity(lElements , lmuscle[0]?.getID(), 0.1)
+        }
       }
+      else if (hlinker.isVisible())
+      {
+        if (clickedEntity.getID() == hteeth[0]?.getID()) {
+          opacity(hElements , hteeth[0]?.getID(), 0.1)
+        }
+        else if (clickedEntity.getID() == hgum[0]?.getID()){
+          opacity(hElements , hgum[0]?.getID(), 0.1)
+        }
+        else if (clickedEntity.getID() == hmuscle[0]?.getID()){
+          opacity(hElements , hmuscle[0]?.getID(), 0.1)
+        }
+      }
+      
 
     };
     
