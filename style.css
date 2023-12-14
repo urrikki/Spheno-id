@@ -9,18 +9,19 @@
   }
 
   #entityContainer {
-    width: 100vw;
-    height: 100vh;
+    position: absolute;
+    top: 0; 
+    right: 0; 
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     padding: 20px;
   }
-
+  
   #entityDropdown {
     margin-bottom: 10px;
   }
-
+  
   #entityInfo {
     margin-bottom: 10px;
   }

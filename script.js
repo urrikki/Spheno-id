@@ -19,6 +19,7 @@ var isPlaying = false;
     async function initEntities() {
       const entities = await SDK3DVerse.engineAPI.findEntitiesByEUID("8dda24fe-0d46-427a-ab54-a8771eca876f");
       linker = entities[0];
+      linker.setVisibility(false);
       
       const hEntities = await SDK3DVerse.engineAPI.findEntitiesByEUID("fa9f5c6e-f595-47a8-8d96-13e57d5db262");
       hlinker = hEntities[0];
@@ -35,37 +36,32 @@ var isPlaying = false;
 
     }
 
-    function opacity(Elements, theOneId , opacityValue) {
-      for (let index = 0; index < Elements.length; index++) {
-        if (Elements[index][0]?.getID() != theOneId) {
-          Elements[index][0].setComponent('material', {
-            dataJSON: {
-              opacity: 1,
-            },
-          });
-        }
+    function opacity(Elements, theOneId , opacityValue , reset) {
+      if (reset == true)
+      {
+        opacity(Elements , 'ok' , 1 , false);
       }
-      for (let index = 0; index < Elements.length; index++) {
-        if (Elements[index][0]?.getID() != theOneId) {
-          Elements[index][0].setComponent('material', {
-            dataJSON: {
-              opacity: opacityValue,
-            },
-          });
-          console.log(Elements[index][0].getComponent('material'));
-        }
-      }
-    }
+      Elements.forEach(element => {
+          const entity = element[0];
+          if (entity?.getID() === theOneId) {
+              return;
+          }
+          let materialDataJSON = entity.getComponent('material').dataJSON;
+          materialDataJSON = SDK3DVerse.utils.clone(materialDataJSON);
+          materialDataJSON.opacity = opacityValue;
+          entity.setComponent('material', { dataJSON : materialDataJSON });
+      })
+  }
 
     function comeBack()
     {
       if (linker.isVisible())
       {
-        opacity(lElements , 'ok' , 1)
+        opacity(lElements , 'ok' , 1 , false)
       }
       else
       {
-        opacity(hElements , 'ok' , 1)
+        opacity(hElements , 'ok' , 1 , false)
       }
     }
 
@@ -132,25 +128,25 @@ var isPlaying = false;
       if (linker.isVisible())
       {
         if (clickedEntity.getID() == lteeth[0]?.getID()) {
-          opacity(lElements , lteeth[0]?.getID() , 0.1)
+          opacity(lElements , lteeth[0]?.getID() , 0.1 , true)
         }
         else if (clickedEntity.getID() == lgum[0]?.getID()){
-          opacity(lElements , lgum[0]?.getID(), 0.1)
+          opacity(lElements , lgum[0]?.getID(), 0.1, true)
         }
         else if (clickedEntity.getID() == lmuscle[0]?.getID()){
-          opacity(lElements , lmuscle[0]?.getID(), 0.1)
+          opacity(lElements , lmuscle[0]?.getID(), 0.1, true)
         }
       }
       else if (hlinker.isVisible())
       {
         if (clickedEntity.getID() == hteeth[0]?.getID()) {
-          opacity(hElements , hteeth[0]?.getID(), 0.1)
+          opacity(hElements , hteeth[0]?.getID(), 0.1, true)
         }
         else if (clickedEntity.getID() == hgum[0]?.getID()){
-          opacity(hElements , hgum[0]?.getID(), 0.1)
+          opacity(hElements , hgum[0]?.getID(), 0.1, true)
         }
         else if (clickedEntity.getID() == hmuscle[0]?.getID()){
-          opacity(hElements , hmuscle[0]?.getID(), 0.1)
+          opacity(hElements , hmuscle[0]?.getID(), 0.1, true)
         }
       }
     };
@@ -162,16 +158,22 @@ var isPlaying = false;
     function onEntitySelected() {
       const dropdown = document.getElementById("entityDropdown");
       const selectedEntityId = dropdown.value;
-      if (linker.isVisible())
+      if (selectedEntityId == "null")
       {
-        opacity(lElements , getIDentity(lElements , selectedEntityId) , 0.3);
-        opac = true;
+        comeBack();
       }
       else
       {
-        opacity(hElements , getIDentity(hElements , selectedEntityId) , 0.3);
-        opac = true;
+        if (linker.isVisible())
+        {
+          opacity(lElements , getIDentity(lElements , selectedEntityId) , 0.3, true);
+        }
+        else
+        {
+          opacity(hElements , getIDentity(hElements , selectedEntityId) , 0.3, true);
+        }
       }
+      
     }
     
     init(); 
