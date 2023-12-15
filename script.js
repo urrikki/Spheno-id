@@ -116,6 +116,21 @@ var isPlaying = false;
       }
     }
 
+    async function hideInterface() {
+      var interfaceDiv = await document.getElementById("interface");
+      var hideButton = document.getElementById("hideButton");
+    
+      if (interfaceDiv.style.visibility == "visible" || interfaceDiv.style.visibility == "") {
+        interfaceDiv.style.visibility = "hidden";
+        hideButton.classList.remove("arrow-down");
+        hideButton.classList.add("arrow-up");
+      } else {
+        interfaceDiv.style.visibility = "visible";
+        hideButton.classList.remove("arrow-up");
+        hideButton.classList.add("arrow-down");
+      }
+    }
+
     async function onClick(event) {
       const target = await SDK3DVerse.engineAPI.castScreenSpaceRay(
         event.clientX,

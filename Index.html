@@ -17,13 +17,20 @@
    ></canvas>
     
   <div id="controls-zone">
-    <div id="controls">
-      <button onclick="reverse()">⏪</button>
-      <button id="startPauseButton" onclick="togglePlayPause()">▶️</button>
-      <button onclick="forward()">⏩</button>
-      <button onclick="openOptions()">⚙️</button>
-      <button onclick="comeBack()">🔄</button>
+    <div id="hide-interface">
+      <button id="hideButton" onclick="hideInterface()" class="arrow-down">&#9660;</button>
     </div>
+    <div id="interface">
+      <div id="controls">
+        <button onclick="reverse()">⏪</button>
+        <button id="startPauseButton" onclick="togglePlayPause()">▶️</button>
+        <button onclick="forward()">⏩</button>
+      </div>
+      <div id="entity-option">
+        <button onclick="openOptions()">⚙️</button>
+        <button onclick="comeBack()">🔄</button>
+      </div>
+    </div> 
   </div>
 
   <div id="entityContainer">

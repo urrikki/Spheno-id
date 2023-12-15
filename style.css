@@ -1,64 +1,96 @@
+/*General*/
 
-.canvas-container {
-    width: 100vw;
-    height: 100vh;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    position: relative;
-  }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height: 100vh;
+}
 
-  #entityContainer {
-    position: absolute;
-    top: 0; 
-    right: 0; 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding: 20px;
-  }
-  
-  #entityDropdown {
-    margin-bottom: 10px;
-  }
-  
-  #entityInfo {
-    margin-bottom: 10px;
-  }
+/* Liste déroulante */
+#entityContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 20px;
+}
 
-  #launchButton {
-    padding: 10px;
-    cursor: pointer;
-  }
+#entityDropdown {
+  margin-bottom: 10px;
+}
 
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    height: 100vh;
-  }
+#entityInfo {
+  margin-bottom: 10px;
+}
 
-  #controls-zone {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-  }
+/* Interface */
+#controls-zone {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+}
 
-  #controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-  }
+#hide-interface {
+  display: flex;
+  align-items: center;
+}
 
-  button {
-    padding: 30px; /* Augmenter la taille du padding pour des boutons plus gros */
-    font-size: 34px; /* Augmenter la taille du texte */
-    cursor: pointer;
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-  }
+#hideButton {
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: auto; /* Fait en sorte que le bouton Hide soit à gauche */
+}
+
+#interface {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Fait en sorte que la partie interface occupe tout l'espace restant */
+}
+
+#controls,
+#entity-option {
+  display: flex;
+  align-items: center;
+}
+
+#controls {
+  flex-grow: 1; /* Fait en sorte que controls occupe tout l'espace disponible */
+  justify-content: center; /* Centre horizontalement le contenu de controls */
+}
+
+#entity-option {
+  margin-left: 10px; /* Ajoutez une marge à gauche pour séparer les deux sections */
+}
+
+#controls button,
+#entity-option button {
+  margin: 0 5px;
+  font-size: 20px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.arrow-up {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
+}
+
+.arrow-down {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
+}
