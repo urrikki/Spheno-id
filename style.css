@@ -9,22 +9,37 @@ body {
 }
 
 /* Liste déroulante */
-#entityContainer {
+.custom-dropdown {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 20px;
+  top: 70px; 
+  right: 10px; 
+  background-color: #fff;
 }
 
-#entityDropdown {
-  margin-bottom: 10px;
+.dropdown-header {
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  user-select: none;
 }
 
-#entityInfo {
-  margin-bottom: 10px;
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.dropdown-options div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Interface */
@@ -93,4 +108,78 @@ button {
 .arrow-down {
   transform: rotate(0deg);
   transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
+}
+
+.startPauseButton {
+  font-size: 25px;
+}
+
+/*navbar*/
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #c2c2c2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.sidenav {
+  position: relative;
+}
+
+.sidenav-header {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidenav-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.sidenav-options div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+}
+
+.buttons button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.second-part {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-bar {
+  display: flex;
+  align-items: flex-end;
+  margin-right: 10px;
+  
+}
+
+.search-bar input {
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #000; 
+  outline: none;
+}
+
+.search-bar button {
+  padding: 10px;
+  cursor: pointer;
 }

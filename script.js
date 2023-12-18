@@ -1,4 +1,5 @@
 var isPlaying = false;
+var dropdownVisible = false;
 
     async function init() {
       await initSession(); 
@@ -71,12 +72,12 @@ var isPlaying = false;
       if (isPlaying) {
         SDK3DVerse.engineAPI.pauseAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , hlinker);
         SDK3DVerse.engineAPI.pauseAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , linker );
-        startPauseButton.textContent = "▶️";
+        startPauseButton.innerHTML = '<i class="far fa-circle-play"></i>';
       } else {
         // Animation
         SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , {playbackSpeed : 1} , hlinker);
         SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0", {playbackSpeed : 1} , linker);
-        startPauseButton.textContent = "⏸";
+        startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
       }
 
       isPlaying = !isPlaying;
@@ -87,7 +88,7 @@ var isPlaying = false;
       SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , { playbackSpeed : -1 } , linker);
       if (isPlaying == false)
       {
-        startPauseButton.textContent = "⏸"
+        startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
         isPlaying = true;
       }
     }
@@ -97,7 +98,7 @@ var isPlaying = false;
       SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , { playbackSpeed : 2 }, linker);
       if (isPlaying == false)
       {
-        startPauseButton.textContent = "⏸"
+        startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
         isPlaying = true;
       }
     }
@@ -166,14 +167,24 @@ var isPlaying = false;
       }
     };
 
-    function getIDentity(Elements , Number) {
-      return Elements[Number][0]?.getID();
+    const entityNames = {
+      'None': '',
+      0: 'Teeth',
+      1: 'Gum',
+      2: 'Muscle',
+    };
+    
+    function toggleDropdown() {
+      const dropdownOptions = document.querySelector('.dropdown-options');
+      dropdownOptions.classList.toggle('hidden');
     }
+    
+    function handleOptionSelection(event) {
+      const selectedValue = event.target.getAttribute('data-value');
+      const selectedName = entityNames[selectedValue];
 
-    function onEntitySelected() {
-      const dropdown = document.getElementById("entityDropdown");
-      const selectedEntityId = dropdown.value;
-      if (selectedEntityId == "null")
+      document.querySelector('.dropdown-header').innerHTML = `Models : ${selectedName} &#9660;`;
+      if (selectedValue == "None")
       {
         comeBack();
       }
@@ -181,14 +192,17 @@ var isPlaying = false;
       {
         if (linker.isVisible())
         {
-          opacity(lElements , getIDentity(lElements , selectedEntityId) , 0.3, true);
+          opacity(lElements , getIDentity(lElements , selectedValue) , 0.3, true);
         }
         else
         {
-          opacity(hElements , getIDentity(hElements , selectedEntityId) , 0.3, true);
+          opacity(hElements , getIDentity(hElements , selectedValue) , 0.3, true);
         }
       }
-      
+    }
+
+    function getIDentity(Elements , Number) {
+      return Elements[Number][0]?.getID();
     }
     
     init(); 
