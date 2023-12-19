@@ -110,10 +110,6 @@ button {
   transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
 }
 
-.startPauseButton {
-  font-size: 25px;
-}
-
 /*navbar*/
 .navbar {
   position: absolute;
@@ -181,5 +177,11 @@ button {
 
 .search-bar button {
   padding: 10px;
+  cursor: pointer;
+}
+
+#startPauseButton {
+  font-size: 40px !important; 
+  padding: 15px;
   cursor: pointer;
 }
