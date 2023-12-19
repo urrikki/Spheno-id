@@ -183,3 +183,69 @@ button {
   padding: 10px;
   cursor: pointer;
 }
+
+#startPauseButton {
+  font-size: 40px !important;
+  padding: 15px;
+  cursor: pointer;
+}
+
+/* sidenav */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#sidenav {
+  height: 100vh;
+  width: 250px;
+  background-color: #fff;
+  color: #000;
+  position: absolute;
+  left: -250px;
+  transition: 0.5s;
+  padding-top: 20px;
+  border-right: 2px solid #5b5f9a;
+}
+
+#sidenav a {
+  padding: 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000;
+  display: block;
+  transition: 0.3s;
+}
+
+#sidenav a:hover {
+  background-color: #f0f0f0;
+}
+
+#logo {
+  padding: 15px;
+  text-align: center;
+}
+
+#menu-icon {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  padding: 10px;
+  bottom: 50px;
+}
+
+.social-icons a {
+  margin-right: 5px;
+}

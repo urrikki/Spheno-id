@@ -204,5 +204,14 @@ var dropdownVisible = false;
     function getIDentity(Elements , Number) {
       return Elements[Number][0]?.getID();
     }
+
+    function toggleSidenav() {
+      var navbar = document.getElementById("sidenav");
+      if (navbar.style.left === "0px") {
+        navbar.style.left = "-250px";
+      } else {
+        navbar.style.left = "0px";
+      }
+    }
     
     init(); 

@@ -20,9 +20,7 @@
 
   <div class="navbar">
     <div class="sidenav">
-      <div class="sidenav-header" onclick="toggleSidenav()">
-        <i class="fas fa-bars"></i>
-      </div>
+
       <div class="sidenav-options hidden">
         <div>Option 1</div>
         <div>Option 2</div>
@@ -37,13 +35,35 @@
       </div>
       
       <div class="buttons">
-        <button onclick="openOptions()"><i class="fa-solid fa-code-compare"></i></button>
+        <button onclick="openOptions()"><i class="fas fa-code-compare"></i></button>
         <button><i class="fas fa-bell"></i></button>
         <button><i class="fas fa-user"></i></button>
       </div>
     </div> 
   </div>
  
+  <div id="sidenav">
+    <div id="logo">
+      <img src="Spheno.png" alt="Spheno" width="80">
+    </div>
+    <a href="#">Dashboard</a>
+    <a href="#">Quiz</a>
+    <a href="#">Progress Tracking</a>
+    <a href="#">Learning Resources</a>
+
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@spheno-idltd3184" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.linkedin.com/company/spheno-id-limited/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/spheno_id/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/Sphenoidltd/" target="_blank"><i class="fab fa-facebook"></i></a>
+    </div>
+  </div>
+
+  <div id="menu-icon" onclick="toggleSidenav()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+
   <div class="custom-dropdown">
     <div class="dropdown-header" onclick="toggleDropdown()">Models : &#9660;</div>
     <div class="dropdown-options hidden" onclick="handleOptionSelection(event)">
