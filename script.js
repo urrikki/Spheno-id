@@ -1,14 +1,26 @@
+window.addEventListener('load', () => {
+  init();
+  document.addEventListener("mousemove", handleMouseMove);
+})
+
 var isPlaying = false;
 var dropdownVisible = false;
 var timer;
 var interface = document.getElementById("controls-zone");
+const loader = document.querySelector('.loader');
 
     async function init() {
       await initSession(); 
       await initEntities(); 
     }
 
+    async function onFirstFrame() {
+      loader.classList.add('fondu-out');
+      SDK3DVerse.notifier.off('onFramePreRender', onFirstFrame);
+    }
+
     async function initSession() {
+
       await SDK3DVerse.joinOrStartSession({
         userToken: "public_VU0u4tvRqwxLIiZw",
         sceneUUID: "e6d5bd66-be7f-47eb-8569-5cf441abfd7c",
@@ -17,6 +29,7 @@ var interface = document.getElementById("controls-zone");
           defaultControllerType: SDK3DVerse.controller_type.orbit,
         },
       });
+      SDK3DVerse.notifier.on('onFramePreRender', onFirstFrame);
     }
 
     async function initEntities() {
@@ -213,6 +226,3 @@ var interface = document.getElementById("controls-zone");
       }
     }
     
-    document.addEventListener("mousemove", handleMouseMove);
-
-    init(); 
