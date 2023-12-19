@@ -1,5 +1,7 @@
 var isPlaying = false;
 var dropdownVisible = false;
+var timer;
+var interface = document.getElementById("controls-zone");
 
     async function init() {
       await initSession(); 
@@ -117,19 +119,16 @@ var dropdownVisible = false;
       }
     }
 
-    async function hideInterface() {
-      var interfaceDiv = await document.getElementById("interface");
-      var hideButton = document.getElementById("hideButton");
+    function handleMouseMove() {
+      interface.style.visibility = "visible";
+      resetTimeout();
+    }
     
-      if (interfaceDiv.style.visibility == "visible" || interfaceDiv.style.visibility == "") {
-        interfaceDiv.style.visibility = "hidden";
-        hideButton.classList.remove("arrow-down");
-        hideButton.classList.add("arrow-up");
-      } else {
-        interfaceDiv.style.visibility = "visible";
-        hideButton.classList.remove("arrow-up");
-        hideButton.classList.add("arrow-down");
-      }
+    function resetTimeout() {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        interface.style.visibility = "hidden";
+      }, 5000); 
     }
 
     async function onClick(event) {
@@ -214,4 +213,6 @@ var dropdownVisible = false;
       }
     }
     
+    document.addEventListener("mousemove", handleMouseMove);
+
     init(); 

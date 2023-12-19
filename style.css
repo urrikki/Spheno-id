@@ -60,13 +60,13 @@ body {
 #hideButton {
   cursor: pointer;
   font-size: 20px;
-  margin-right: auto; /* Fait en sorte que le bouton Hide soit à gauche */
+  margin-right: auto; 
 }
 
 #interface {
   display: flex;
   align-items: center;
-  flex-grow: 1; /* Fait en sorte que la partie interface occupe tout l'espace restant */
+  flex-grow: 0.975; 
 }
 
 #controls,
@@ -76,12 +76,12 @@ body {
 }
 
 #controls {
-  flex-grow: 1; /* Fait en sorte que controls occupe tout l'espace disponible */
-  justify-content: center; /* Centre horizontalement le contenu de controls */
+  flex-grow: 1; 
+  justify-content: center; 
 }
 
 #entity-option {
-  margin-left: 10px; /* Ajoutez une marge à gauche pour séparer les deux sections */
+  margin-left: 10px; 
 }
 
 #controls button,
@@ -102,16 +102,12 @@ button {
 
 .arrow-up {
   transform: rotate(180deg);
-  transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
+  transition: transform 0.3s ease; 
 }
 
 .arrow-down {
   transform: rotate(0deg);
-  transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
-}
-
-.startPauseButton {
-  font-size: 25px;
+  transition: transform 0.3s ease; 
 }
 
 /*navbar*/
