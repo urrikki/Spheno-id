@@ -81,17 +81,32 @@ function comeBack()
   }
 }
 
+function mute() {
+  var audioPlayer = document.getElementById("audioPlayer");
+  var muteButton = document.querySelector("#controls button[data-action='mute']");
+
+  audioPlayer.muted = !audioPlayer.muted;
+
+  if (audioPlayer.muted) {
+    muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+  } else {
+    muteButton.innerHTML = '<i class="fas fa-volume-high"></i>';
+  }
+}
 function togglePlayPause() {
   var startPauseButton = document.getElementById("startPauseButton");
 
   if (isPlaying) {
     SDK3DVerse.engineAPI.pauseAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , hlinker);
     SDK3DVerse.engineAPI.pauseAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , linker );
+    audioPlayer.pause();
     startPauseButton.innerHTML = '<i class="far fa-circle-play"></i>';
   } else {
     // Animation
     SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , {playbackSpeed : 1} , hlinker);
     SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0", {playbackSpeed : 1} , linker);
+    audioPlayer.currentTime = 0; // Rewind the audio to the beginning
+    audioPlayer.play();
     startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
   }
 
