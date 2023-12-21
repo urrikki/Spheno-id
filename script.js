@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
 
 var isPlaying = false;
 var dropdownVisible = false;
+var currentAudioTime = 0;
 var timer;
 var interface = document.getElementById("controls-zone");
 const loader = document.querySelector('.loader');
@@ -93,10 +94,13 @@ function mute() {
     muteButton.innerHTML = '<i class="fas fa-volume-high"></i>';
   }
 }
+
 function togglePlayPause() {
   var startPauseButton = document.getElementById("startPauseButton");
+  var audioPlayer = document.getElementById("audioPlayer");
 
   if (isPlaying) {
+    currentAudioTime = audioPlayer.currentTime;
     SDK3DVerse.engineAPI.pauseAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , hlinker);
     SDK3DVerse.engineAPI.pauseAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , linker );
     audioPlayer.pause();
@@ -105,7 +109,7 @@ function togglePlayPause() {
     // Animation
     SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" , {playbackSpeed : 1} , hlinker);
     SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0", {playbackSpeed : 1} , linker);
-    audioPlayer.currentTime = 0; // Rewind the audio to the beginning
+    audioPlayer.currentTime = currentAudioTime;
     audioPlayer.play();
     startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
   }
@@ -114,22 +118,36 @@ function togglePlayPause() {
 }
 
 function reverse() {
-  SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" ,{ playbackSpeed : -1 } , hlinker);
-  SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , { playbackSpeed : -1 } , linker);
-  if (isPlaying == false)
-  {
-    startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
-    isPlaying = true;
-  }
+  const speed = -2; // Valeur de vitesse pour l'animation et le fichier audio
+  updatePlayback(speed);
 }
 
 function forward() {
-  SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e" ,{ playbackSpeed : 2 } , hlinker);
-  SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0" , { playbackSpeed : 2 }, linker);
-  if (isPlaying == false)
-  {
-    startPauseButton.innerHTML = '<i class="far fa-circle-pause"></i>';
+  const speed = 2; // Valeur de vitesse pour l'animation et le fichier audio
+  updatePlayback(speed);
+}
+
+function updatePlayback(speed) {
+  SDK3DVerse.engineAPI.playAnimationSequence("22a4a489-f0fc-449b-aa87-81d59cc31d6e", { playbackSpeed: speed }, hlinker);
+  SDK3DVerse.engineAPI.playAnimationSequence("6bbf5e8c-d3ea-4f44-8c04-c477955bc8b0", { playbackSpeed: speed }, linker);
+
+  if (isPlaying) {
+    const audioPlayer = document.getElementById("audioPlayer");
+    audioPlayer.currentTime += speed; // Met à jour la position du fichier audio
+
+    // Assurez-vous que le fichier audio ne dépasse pas la fin ou le début
+    if (audioPlayer.currentTime < 0) {
+      audioPlayer.currentTime = 0;
+    } else if (audioPlayer.currentTime > audioPlayer.duration) {
+      audioPlayer.currentTime = audioPlayer.duration;
+    }
+  }
+
+  if (!isPlaying) {
+    const startPauseButton = document.getElementById("startPauseButton");
+    startPauseButton.innerHTML = speed > 0 ? '<i class="far fa-circle-play"></i>' : '<i class="far fa-circle-pause"></i>';
     isPlaying = true;
+    togglePlayPause(); // Inverse l'état pour mettre en pause si la lecture était arrêtée
   }
 }
 
