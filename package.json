@@ -1,0 +1,19 @@
+{
+    "name": "nom-de-votre-projet",
+    "version": "1.0.0",
+    "description": "Description de votre projet",
+    "main": "index.js",
+    "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -b master -d build",
+        "start": "react-scripts start",
+        "build": "react-scripts build"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "gh-pages": "^6.1.0"
+    },
+    "author": "Votre Nom",
+    "license": "MIT",
+    "homepage": "https://urrikki.github.io/Spheno-id"
+}
