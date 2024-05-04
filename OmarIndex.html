@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+
+  <div class="loader">
+    <img class="heartbeat" src="heartbeat_spheno.gif" alt="loading">
+  </div>
+  <canvas
+    id="display-canvas"
+    class="display-canvas"
+    oncontextmenu="event.preventDefault()"
+    onclick="onClick(event)"
+  ></canvas>
+
+  <div class="navbar">
+    <div class="sidenav">
+
+      <div class="sidenav-options hidden">
+        <div>Option 1</div>
+        <div>Option 2</div>
+        <div>Option 3</div>
+      </div>
+    </div>
+    
+    <div class="second-part">
+      <div class="search-bar">
+        <input type="text" placeholder="Search">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      
+      <div class="buttons">
+        <button onclick="openOptions()"><i class="fas fa-code-compare"></i></button>
+        <button><i class="fas fa-bell"></i></button>
+        <button><i class="fas fa-user"></i></button>
+      </div>
+    </div> 
+  </div>
+ 
+  <div id="sidenav">
+    <div id="logo">
+      <img src="Spheno.png" alt="Spheno" width="80">
+    </div>
+    <a href="#">Dashboard</a>
+    <a href="#">Quiz</a>
+    <a href="#">Progress Tracking</a>
+    <a href="#">Learning Resources</a>
+
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@spheno-idltd3184" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.linkedin.com/company/spheno-id-limited/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/spheno_id/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/Sphenoidltd/" target="_blank"><i class="fab fa-facebook"></i></a>
+    </div>
+  </div>
+
+  <div id="menu-icon" onclick="toggleSidenav()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+
+  <div class="custom-dropdown">
+    <div class="dropdown-header" onclick="toggleDropdown()">Models : &#9660;</div>
+    <div class="dropdown-options hidden" onclick="handleOptionSelection(event)">
+      <div data-value="None">None</div>
+      <div data-value="0">Muscle constricteur moyen du pharynx</div>
+      <div data-value="1">Os hyoide</div>
+      <div data-value="2">Muscle hyo-glosse basio glosse</div>
+      <div data-value="3">Membrane hyo-glossienne</div>
+      <div data-value="4">Muscle hyo-glosse cerato glosse</div>
+      <div data-value="5">Muscle stylo-glosse</div>
+      <div data-value="6">Group1</div>
+      <div data-value="7">dents</div>
+      <div data-value="8">Muscle mylo-hyoidien</div>
+      <div data-value="9">Muscle stylo-hyoidien</div>
+      <div data-value="10">Muscle digastrique ventre anterieur</div>
+      <div data-value="11">Dents</div>
+      <div data-value="12">Muscle mylo-hyoidien_1</div>
+      <div data-value="13">Muscle genio-hyoidien</div>
+      <div data-value="14">Artere </div>
+      <div data-value="15">Os mandibulaire </div>
+      <div data-value="16">Muscle longitudinal superieur</div>
+      <div data-value="17">Muscle digastrique</div>
+      <div data-value="18">Muscle genio-glosse</div>
+      <div data-value="19">Muscle mylo-hyoidien</div>
+      <div data-value="20">Artere_1</div>
+      <div data-value="21">Muscle stylo-glosse</div>
+      <div data-value="22">Artere alveolaire inferieur</div>
+      <div data-value="23">Lygament stylo-hyoidien</div>
+      <div data-value="24">Tendon digastrique</div>
+      <div data-value="25">Septum lingual</div>
+    </div>
+</div>
+    
+  <audio id="audioPlayer" src="video1_bis.m4a"></audio>
+
+  <div id="controls-zone">
+    <div id="hide-interface">
+      <button id="chatButton" onclick=""><i class="fas fa-comment"></i></button>
+    </div>
+    <div id="interface">
+      <div id="controls">
+        <button onclick="mute()" data-action="mute"><i class="fas fa-volume-high"></i></button>
+        <button onclick="reverse()"><i class="fas fa-backward"></i></button>
+        <button id="startPauseButton" onclick="togglePlayPause()"><i class="far fa-circle-play"></i></button>
+        <button onclick="forward()"><i class="fas fa-forward"></i></button>
+        <button onclick="comeBack()"><i class="fas fa-eye"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVELINK SDK -->
+  <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
+
+  <script src="./Omar.js"></script>
+
+</body>
+
+</html>
