@@ -47,6 +47,8 @@ body {
 
 .dropdown-options {
   position: absolute;
+  max-height: 300px; /* Limite la hauteur du dropdown */
+  overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
   top: 100%;
   right: 0;
   width: 100%;
